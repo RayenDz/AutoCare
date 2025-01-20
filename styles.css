@@ -313,3 +313,13 @@ th {
 .clear-button:hover {
     background-color: #c82333;
 }
+/* تنسيق أيقونة الحذف */
+.delete-icon {
+    color: #dc3545; /* لون أحمر */
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.delete-icon:hover {
+    color: #c82333; /* لون أحمر داكن عند التمرير */
+}
