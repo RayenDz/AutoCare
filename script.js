@@ -67,7 +67,7 @@ document.getElementById('maintenanceForm').addEventListener('submit', function (
     const airFilter = document.querySelector('input[name="airFilter"]:checked').value;
     const notes = document.getElementById('notes').value;
 
-    const remainingDistance = oilChangeDistance - distanceDriven;
+    const remainingDistance = oilChangeDistance + distanceDriven;
 
     const record = {
         carName,
