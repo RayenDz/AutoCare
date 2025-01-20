@@ -11,7 +11,7 @@ function loadDataFromLocalStorage() {
     const tableBody = document.querySelector('#maintenanceTable tbody');
     tableBody.innerHTML = '';
 
-    records.forEach(record => {
+    records.forEach((record, index) => {
         const newRow = document.createElement('tr');
         newRow.innerHTML = `
             <td data-label="اسم السيارة">${record.carName}</td>
@@ -24,9 +24,30 @@ function loadDataFromLocalStorage() {
             <td data-label="فلتر الزيت">${record.oilFilter}</td>
             <td data-label="فلتر الهواء">${record.airFilter}</td>
             <td data-label="ملاحظات">${record.notes}</td>
+            <td data-label="حذف"><i class="fas fa-trash delete-icon" data-index="${index}"></i></td> <!-- أيقونة الحذف -->
         `;
         tableBody.appendChild(newRow);
     });
+
+    // إضافة حدث النقر لأيقونات الحذف
+    document.querySelectorAll('.delete-icon').forEach(icon => {
+        icon.addEventListener('click', deleteRecord);
+    });
+}
+
+// دالة لحذف سجل
+function deleteRecord(event) {
+    const index = event.target.getAttribute('data-index'); // الحصول على الفهرس من السجل
+    let records = JSON.parse(localStorage.getItem('maintenanceRecords')) || [];
+    
+    // حذف السجل من المصفوفة
+    records.splice(index, 1);
+    
+    // حفظ المصفوفة المحدثة في localStorage
+    localStorage.setItem('maintenanceRecords', JSON.stringify(records));
+    
+    // إعادة تحميل الجدول
+    loadDataFromLocalStorage();
 }
 
 // تحميل البيانات عند تحميل الصفحة
@@ -46,7 +67,7 @@ document.getElementById('maintenanceForm').addEventListener('submit', function (
     const airFilter = document.querySelector('input[name="airFilter"]:checked').value;
     const notes = document.getElementById('notes').value;
 
-    const remainingDistance = oilChangeDistance + distanceDriven;
+    const remainingDistance = oilChangeDistance - distanceDriven;
 
     const record = {
         carName,
@@ -62,22 +83,6 @@ document.getElementById('maintenanceForm').addEventListener('submit', function (
     };
 
     saveDataToLocalStorage(record);
-
-    const tableBody = document.querySelector('#maintenanceTable tbody');
-    const newRow = document.createElement('tr');
-    newRow.innerHTML = `
-        <td data-label="اسم السيارة">${carName}</td>
-        <td data-label="نوع الصيانة">${maintenanceType}</td>
-        <td data-label="تاريخ الصيانة">${maintenanceDate}</td>
-        <td data-label="تاريخ الصيانة القادمة">${nextMaintenanceDate}</td>
-        <td data-label="المسافة المقطوعة (كم)">${distanceDriven}</td>
-        <td data-label="مسافة تغيير الفيدونج (كم)">${oilChangeDistance}</td>
-        <td data-label="المسافة المتبقية (كم)">${remainingDistance}</td>
-        <td data-label="فلتر الزيت">${oilFilter}</td>
-        <td data-label="فلتر الهواء">${airFilter}</td>
-        <td data-label="ملاحظات">${notes}</td>
-    `;
-    tableBody.appendChild(newRow);
-
+    loadDataFromLocalStorage(); // إعادة تحميل الجدول بعد الإضافة
     document.getElementById('maintenanceForm').reset();
 });
