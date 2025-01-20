@@ -1,88 +1,92 @@
-// دالة لحفظ البيانات في localStorage
-function saveDataToLocalStorage(data) {
-    let records = JSON.parse(localStorage.getItem('maintenanceRecords')) || [];
-    records.push(data);
-    localStorage.setItem('maintenanceRecords', JSON.stringify(records));
-}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متابعة صيانة السيارة</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- إضافة مكتبة Font Awesome للأيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-car"></i> متابعة صيانة السيارة</h1>
+        <form id="maintenanceForm">
+            <label for="carName"><i class="fas fa-car-side"></i> اسم السيارة:</label>
+            <input type="text" id="carName" name="carName" required>
 
-// دالة لتحميل البيانات من localStorage
-function loadDataFromLocalStorage() {
-    const records = JSON.parse(localStorage.getItem('maintenanceRecords')) || [];
-    const tableBody = document.querySelector('#maintenanceTable tbody');
-    tableBody.innerHTML = '';
+            <label for="maintenanceType"><i class="fas fa-tools"></i> نوع الصيانة:</label>
+            <select id="maintenanceType" name="maintenanceType" required>
+                <option value="فيدونج">فيدونج</option>
+                <option value="عجلات">عجلات</option>
+                <option value="بوجيات">بوجيات</option>
+                <option value="بطارية">بطارية</option>
+                <option value="فلتر">فلتر</option>
+            </select>
 
-    records.forEach((record, index) => {
-        const newRow = document.createElement('tr');
-        newRow.innerHTML = `
-            <td data-label="اسم السيارة">${record.carName}</td>
-            <td data-label="نوع الصيانة">${record.maintenanceType}</td>
-            <td data-label="تاريخ الصيانة">${record.maintenanceDate}</td>
-            <td data-label="تاريخ الصيانة القادمة">${record.nextMaintenanceDate}</td>
-            <td data-label="المسافة المقطوعة (كم)">${record.distanceDriven}</td>
-            <td data-label="مسافة تغيير الفيدونج (كم)">${record.oilChangeDistance}</td>
-            <td data-label="المسافة المتبقية (كم)">${record.remainingDistance}</td>
-            <td data-label="فلتر الزيت">${record.oilFilter}</td>
-            <td data-label="فلتر الهواء">${record.airFilter}</td>
-            <td data-label="ملاحظات">${record.notes}</td>
-            <td data-label="حذف"><i class="fas fa-trash delete-icon" data-index="${index}"></i></td> <!-- أيقونة الحذف -->
-        `;
-        tableBody.appendChild(newRow);
-    });
+            <label for="maintenanceDate"><i class="fas fa-calendar-alt"></i> تاريخ الصيانة:</label>
+            <input type="date" id="maintenanceDate" name="maintenanceDate" required>
 
-    // إضافة حدث النقر لأيقونات الحذف
-    document.querySelectorAll('.delete-icon').forEach(icon => {
-        icon.addEventListener('click', deleteRecord);
-    });
-}
+            <label for="nextMaintenanceDate"><i class="fas fa-calendar-check"></i> تاريخ الصيانة القادمة:</label>
+            <input type="date" id="nextMaintenanceDate" name="nextMaintenanceDate" required>
 
-// دالة لحذف سجل
-function deleteRecord(event) {
-    const index = event.target.getAttribute('data-index'); // الحصول على الفهرس من السجل
-    let records = JSON.parse(localStorage.getItem('maintenanceRecords')) || [];
-    
-    // حذف السجل من المصفوفة
-    records.splice(index, 1);
-    
-    // حفظ المصفوفة المحدثة في localStorage
-    localStorage.setItem('maintenanceRecords', JSON.stringify(records));
-    
-    // إعادة تحميل الجدول
-    loadDataFromLocalStorage();
-}
+            <label for="distanceDriven"><i class="fas fa-tachometer-alt"></i> المسافة المقطوعة (كم):</label>
+            <input type="number" id="distanceDriven" name="distanceDriven" required>
 
-// تحميل البيانات عند تحميل الصفحة
-document.addEventListener('DOMContentLoaded', loadDataFromLocalStorage);
+            <label for="oilChangeDistance"><i class="fas fa-oil-can"></i> مسافة تغيير الفيدونج (كم):</label>
+            <input type="number" id="oilChangeDistance" name="oilChangeDistance" required>
 
-// إضافة بيانات جديدة عند تقديم النموذج
-document.getElementById('maintenanceForm').addEventListener('submit', function (e) {
-    e.preventDefault();
+            <!-- حقل فلتر الزيت -->
+            <label><i class="fas fa-filter"></i> فلتر الزيت:</label>
+            <div class="radio-group">
+                <label>
+                    <input type="radio" name="oilFilter" value="تغيير" required> تغيير
+                </label>
+                <label>
+                    <input type="radio" name="oilFilter" value="عدم تغيير"> عدم تغيير
+                </label>
+            </div>
 
-    const carName = document.getElementById('carName').value;
-    const maintenanceType = document.getElementById('maintenanceType').value;
-    const maintenanceDate = document.getElementById('maintenanceDate').value;
-    const nextMaintenanceDate = document.getElementById('nextMaintenanceDate').value;
-    const distanceDriven = parseInt(document.getElementById('distanceDriven').value);
-    const oilChangeDistance = parseInt(document.getElementById('oilChangeDistance').value);
-    const oilFilter = document.querySelector('input[name="oilFilter"]:checked').value;
-    const airFilter = document.querySelector('input[name="airFilter"]:checked').value;
-    const notes = document.getElementById('notes').value;
+            <!-- حقل فلتر الهواء -->
+            <label><i class="fas fa-wind"></i> فلتر الهواء:</label>
+            <div class="radio-group">
+                <label>
+                    <input type="radio" name="airFilter" value="تغيير" required> تغيير
+                </label>
+                <label>
+                    <input type="radio" name="airFilter" value="عدم تغيير"> عدم تغيير
+                </label>
+            </div>
 
-    const remainingDistance = oilChangeDistance - distanceDriven;
+            <label for="notes"><i class="fas fa-sticky-note"></i> ملاحظات:</label>
+            <textarea id="notes" name="notes" rows="4"></textarea>
 
-    const record = {
-        carName,
-        maintenanceType,
-        maintenanceDate,
-        nextMaintenanceDate,
-        distanceDriven,
-        oilChangeDistance,
-        remainingDistance,
-        oilFilter,
-        airFilter,
-        notes
-    };
+            <button type="submit"><i class="fas fa-plus-circle"></i> إضافة الصيانة</button>
+        </form>
 
-    saveDataToLocalStorage(record);
-    loadDataFromLocalStorage(); // إعادة تحميل الجدول بعد الإضافة
-    document.getElementById('maintenanceForm').reset();
-});
+        <h2><i class="fas fa-history"></i> سجل الصيانة</h2>
+        <table id="maintenanceTable">
+            <thead>
+                <tr>
+                    <th>اسم السيارة</th>
+                    <th>نوع الصيانة</th>
+                    <th>تاريخ الصيانة</th>
+                    <th>تاريخ الصيانة القادمة</th>
+                    <th>المسافة المقطوعة (كم)</th>
+                    <th>مسافة تغيير الفيدونج (كم)</th>
+                    <th>المسافة المتبقية (كم)</th>
+                    <th>فلتر الزيت</th>
+                    <th>فلتر الهواء</th>
+                    <th>ملاحظات</th>
+                    <th>حذف</th> <!-- عمود جديد لأيقونة الحذف -->
+                </tr>
+            </thead>
+            <tbody>
+                <!-- البيانات ستظهر هنا -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
