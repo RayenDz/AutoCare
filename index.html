@@ -89,45 +89,91 @@
 <div>
   <label for="carName" class="block font-medium text-gray-700 mb-1"><i class="fas fa-car-side text-indigo-600"></i> اسم السيارة:</label>
   <input type="text" id="carName" name="carName" list="carModels" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
-  <datalist id="carModels">
-    <!-- السيارات الجزائرية والشائعة في الجزائر -->
-    <option value="سيتروين C3">
-    <option value="سيتروين C4">
-    <option value="رينو سيمبول">
-    <option value="رينو لوجان">
-    <option value="رينو سانديرو">
-    <option value="داسيا لوجان">
-    <option value="داسيا سانديرو">
-    <option value="داسيا داستر">
-    <option value="هيونداي i10">
-    <option value="هيونداي أكسنت">
-    <option value="هيونداي توسان">
-    <option value="كيا بيكانتو">
-    <option value="كيا ريو">
-    <option value="كيا سبورتاج">
-    <option value="فولكسفاغن بولو">
-    <option value="فولكسفاغن جولف">
-    <option value="فولكسفاغن تيغوان">
-    <option value="بيجو 208">
-    <option value="بيجو 301">
-    <option value="بيجو 2008">
-    <option value="تويوتا ياريس">
-    <option value="تويوتا كورولا">
-    <option value="تويوتا راف4">
-    <option value="نيسان ميكرا">
-    <option value="نيسان قشقاي">
-    <option value="نيسان اكس-تريل">
-    <option value="مرسيدس A كلاس">
-    <option value="مرسيدس C كلاس">
-    <option value="مرسيدس GLA">
-    <option value="BMW السلسلة 1">
-    <option value="BMW السلسلة 3">
-    <option value="BMW X1">
+<datalist id="carModels">
     <!-- السيارات الجزائرية الصنع -->
-    <option value="تاهسيت (صنع جزائري)">
-    <option value="رونو باترول (صنع جزائري)">
-  </datalist>
-</div>
+    <optgroup label="صنع جزائري">
+        <option value="تاهسيت">
+        <option value="رونو باترول">
+    </optgroup>
+    
+    <!-- مجموعة فولكسفاغن -->
+    <optgroup label="فولكسفاغن">
+        <option value="فولكسفاغن جولف">
+        <option value="فولكسفاغن جولف GTI">
+        <option value="فولكسفاغن جولف R">
+        <option value="فولكسفاغن جولف 7">
+        <option value="فولكسفاغن جولف 8">
+        <option value="فولكسفاغن جولف سبورتسفان">
+        <option value="فولكسفاغن بولو">
+        <option value="فولكسفاغن تيغوان">
+    </optgroup>
+    
+    <!-- مجموعة رينو/داسيا -->
+    <optgroup label="رينو/داسيا">
+        <option value="رينو سيمبول">
+        <option value="رينو لوجان">
+        <option value="رينو سانديرو">
+        <option value="داسيا لوجان">
+        <option value="داسيا سانديرو">
+        <option value="داسيا داستر">
+    </optgroup>
+    
+    <!-- مجموعة سيتروين -->
+    <optgroup label="سيتروين">
+        <option value="سيتروين C3">
+        <option value="سيتروين C4">
+    </optgroup>
+    
+    <!-- مجموعة هيونداي -->
+    <optgroup label="هيونداي">
+        <option value="هيونداي i10">
+        <option value="هيونداي أكسنت">
+        <option value="هيونداي توسان">
+    </optgroup>
+    
+    <!-- مجموعة كيا -->
+    <optgroup label="كيا">
+        <option value="كيا بيكانتو">
+        <option value="كيا ريو">
+        <option value="كيا سبورتاج">
+    </optgroup>
+    
+    <!-- مجموعة بيجو -->
+    <optgroup label="بيجو">
+        <option value="بيجو 208">
+        <option value="بيجو 301">
+        <option value="بيجو 2008">
+    </optgroup>
+    
+    <!-- مجموعة تويوتا -->
+    <optgroup label="تويوتا">
+        <option value="تويوتا ياريس">
+        <option value="تويوتا كورولا">
+        <option value="تويوتا راف4">
+    </optgroup>
+    
+    <!-- مجموعة نيسان -->
+    <optgroup label="نيسان">
+        <option value="نيسان ميكرا">
+        <option value="نيسان قشقاي">
+        <option value="نيسان اكس-تريل">
+    </optgroup>
+    
+    <!-- مجموعة مرسيدس -->
+    <optgroup label="مرسيدس">
+        <option value="مرسيدس A كلاس">
+        <option value="مرسيدس C كلاس">
+        <option value="مرسيدس GLA">
+    </optgroup>
+    
+    <!-- مجموعة BMW -->
+    <optgroup label="BMW">
+        <option value="BMW السلسلة 1">
+        <option value="BMW السلسلة 3">
+        <option value="BMW X1">
+    </optgroup>
+</datalist>
+  </div> <!-- <== تم إغلاق الـ div هنا بشكل صحيح -->
             <div>
               <label for="maintenanceType" class="block font-medium text-gray-700 mb-1"><i class="fas fa-tools text-indigo-600"></i> نوع الصيانة:</label>
               <select id="maintenanceType" name="maintenanceType" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
